@@ -1,0 +1,28 @@
+-@ var examples:java.util.List[mikaelhg.example.Example]
+-@ var comedies:java.util.List[mikaelhg.example.Example]
+!!! 5
+%html
+  %head
+    %link(rel="stylesheet" href="/resources/css/bootstrap.css")
+    %link(rel="stylesheet" href="/resources/css/bootstrap.responsive")
+    %title Example application with #{examples.size} examples.
+  %body(style="padding-top: 60px;")
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          %a.brand(href="#") Example project
+    .container-fluid
+      .row-fluid
+        .page-header
+          %h1 Our examples
+        %form(method='POST' action='/submitExample')
+          %input(type='text' name='name')
+          %input(type='submit' value='OK' class="btn")
+        - for(x <- examples)
+          %p.example<
+            %a(class="btn" href='/edit/#{x.getId}') #{x.getName}!
+        %p Comedies:
+        - for(x <- comedies)
+          %p.comedy<
+            %a(class="btn success" href='/edit/#{x.getId}') #{x.getName}!
+  %script(src="/resources/js/bootstrap.js")

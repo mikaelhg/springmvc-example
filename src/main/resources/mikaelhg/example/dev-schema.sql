@@ -1,0 +1,4 @@
+CREATE MEMORY TABLE examples (
+  id IDENTITY PRIMARY KEY,
+  name TEXT
+);
