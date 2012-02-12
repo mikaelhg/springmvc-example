@@ -16,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 @Data @NoArgsConstructor @RequiredArgsConstructor
 public class Example implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
