@@ -4,6 +4,8 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import static com.google.common.collect.Iterables.any;
 import javax.annotation.Resource;
+import static org.joda.time.DateTime.now;
+import static org.joda.time.DateTimeConstants.MONDAY;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +37,9 @@ public class ExampleService {
         if (any(badWords, contains(example.getName()))) {
             return false;
         } else {
+            if (now().dayOfWeek().get() == MONDAY) {
+                log.info("Do I _have_ to... It's too early for this stuff!");
+            }
             return null != dao.save(example);
         }
     }
