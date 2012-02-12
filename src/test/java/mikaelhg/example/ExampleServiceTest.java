@@ -1,10 +1,10 @@
 package mikaelhg.example;
 
-import static org.mockito.Mockito.*;
-import static org.mockito.Matchers.*;
+import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,9 +15,9 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 @ContextConfiguration(loader=AnnotationConfigContextLoader.class)
 public class ExampleServiceTest {
 
-    @Autowired private ExampleDao dao;
+    @Resource private ExampleDao dao;
 
-    @Autowired private ExampleService svc;
+    @Resource private ExampleService svc;
 
     @Configuration
     static class ContextConfiguration {
