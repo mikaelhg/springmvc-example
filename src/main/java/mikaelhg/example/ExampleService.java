@@ -37,7 +37,7 @@ public class ExampleService {
         if (any(badWords, contains(example.getName()))) {
             return false;
         } else {
-            if (now().dayOfWeek().get() == MONDAY) {
+            if (now().getDayOfWeek() == MONDAY) {
                 log.info("Do I _have_ to... It's too early for this stuff!");
             }
             return null != dao.save(example);
