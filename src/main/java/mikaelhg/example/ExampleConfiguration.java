@@ -122,6 +122,7 @@ public class ExampleConfiguration extends WebMvcConfigurerAdapter {
     {
         final LocalContainerEntityManagerFactoryBean ret =
                 new LocalContainerEntityManagerFactoryBean();
+        ret.setPackagesToScan("mikaelhg.example");
         ret.setDataSource(ds);
         ret.setJpaVendorAdapter(jva);
         ret.afterPropertiesSet();
