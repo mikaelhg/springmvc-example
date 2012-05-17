@@ -25,18 +25,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <repositories>
-    <repository>
-      <id>spring-milestone.repository</id>
-      <url>http://maven.springframework.org/milestone/</url>
-    </repository>
-    <repository>
-      <id>spring-snapshot.repository</id>
-      <url>http://maven.springframework.org/snapshot/</url>
-      <snapshots><enabled>false</enabled></snapshots>
-    </repository>
-  </repositories>
-
   <dependencies>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -97,7 +85,7 @@
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
-      <version>1.1.0.RC1</version>
+      <version>1.1.0.RELEASE</version>
     </dependency>
 
     <dependency>
