@@ -24,7 +24,13 @@ JRebel, or a commercial one, if your project pays for it: http://zeroturnaround.
     mvn-jrebel jetty:run
 
 ## Production mode
-    mvn-jrebel -Ddb.servername=localhost -Ddb.databasename=database \
+    mvn-jrebel -P postgresql -Dspring.profiles.active=postgresql \
+      -Ddb.servername=localhost -Ddb.databasename=database \
       -Ddb.user=username -Ddb.password=password \
-      -Dspring.profiles.active=production \
+      jetty:run
+
+## MySQL mode
+    mvn-jrebel -P mysql -Dspring.profiles.active=mysql \
+      -Ddb.url=jdbc:mysql://localhost/database  \
+      -Ddb.username=username -Ddb.password=password \
       jetty:run
