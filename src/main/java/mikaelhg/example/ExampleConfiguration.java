@@ -3,6 +3,7 @@ package mikaelhg.example;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.fusesource.scalate.spring.view.ScalateViewResolver;
 import org.postgresql.ds.PGPoolingDataSource;
 import org.springframework.beans.factory.BeanFactory;
@@ -42,7 +43,7 @@ public class ExampleConfiguration extends WebMvcConfigurerAdapter {
 
     @Configuration
     @Profile("default")
-    public static class DefaultProfileConfiguration {
+    public static class DevelopmentProfileConfiguration {
 
         @Bean public DataSource dataSource() {
             return new EmbeddedDatabaseBuilder()
@@ -61,8 +62,8 @@ public class ExampleConfiguration extends WebMvcConfigurerAdapter {
     }
 
     @Configuration
-    @Profile("production")
-    public static class ProductionProfileConfiguration {
+    @Profile("postgresql")
+    public static class PostgreSQLProfileConfiguration {
 
         @Resource private Environment env;
 
@@ -83,16 +84,41 @@ public class ExampleConfiguration extends WebMvcConfigurerAdapter {
         }
     }
 
+    @Configuration
+    @Profile("mysql")
+    public static class MySQLProfileConfiguration {
+
+        @Resource private Environment env;
+
+        @Bean public DataSource dataSource() {
+            final BasicDataSource ret = new BasicDataSource();
+            ret.setUrl(env.getProperty("db.url"));
+            ret.setDriverClassName(
+                    env.getProperty("db.driverClass", "com.mysql.jdbc.Driver"));
+            ret.setUsername(env.getProperty("db.username"));
+            ret.setPassword(env.getProperty("db.password"));
+            ret.setValidationQuery("SELECT 1");
+            return ret;
+        }
+
+        @Bean public JpaVendorAdapter jpaVendorAdapter() {
+            final HibernateJpaVendorAdapter ret =
+                    new HibernateJpaVendorAdapter();
+            ret.setDatabase(Database.MYSQL);
+            return ret;
+        }
+    }
+
     @Bean public FactoryBean<ExampleDao> exampleDao(
             final EntityManagerFactory emf, final BeanFactory beanFactory)
     {
-        final JpaRepositoryFactoryBean<ExampleDao, Example, Long> factory =
+        final JpaRepositoryFactoryBean<ExampleDao, Example, Long> ret =
                 new JpaRepositoryFactoryBean<>();
-        factory.setBeanFactory(beanFactory);
-        factory.setEntityManager(emf.createEntityManager());
-        factory.setRepositoryInterface(ExampleDao.class);
-        factory.afterPropertiesSet();
-        return factory;
+        ret.setBeanFactory(beanFactory);
+        ret.setEntityManager(emf.createEntityManager());
+        ret.setRepositoryInterface(ExampleDao.class);
+        ret.afterPropertiesSet();
+        return ret;
     }
 
     @Bean public RequestToViewNameTranslator viewTranslator() {
@@ -138,8 +164,8 @@ public class ExampleConfiguration extends WebMvcConfigurerAdapter {
     }
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**")
+    public void addResourceHandlers(final ResourceHandlerRegistry reg) {
+        reg.addResourceHandler("/resources/**")
                 .addResourceLocations("/WEB-INF/resources/");
     }
 
