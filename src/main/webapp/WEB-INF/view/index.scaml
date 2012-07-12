@@ -3,8 +3,7 @@
 !!! 5
 %html
   %head
-    %link(rel="stylesheet" href="/resources/css/bootstrap.css")
-    %link(rel="stylesheet" href="/resources/css/bootstrap.responsive")
+    %link(rel="stylesheet" href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap-combined.min.css")
     %title Example application with #{examples.size} examples.
   %body(style="padding-top: 60px;")
     .navbar.navbar-fixed-top
@@ -25,4 +24,4 @@
         - for(x <- comedies)
           %p.comedy<
             %a(class="btn success" href='/edit/#{x.getId}') #{x.getName}!
-  %script(src="/resources/js/bootstrap.js")
+  %script(src="http://current.bootstrapcdn.com/bootstrap-v204/js/bootstrap.min.js")
