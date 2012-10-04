@@ -13,30 +13,39 @@
   <url>springmvc-example</url>
 
   <properties>
-    <hibernate.version>4.1.3.Final</hibernate.version>
-    <spring.version>3.1.1.RELEASE</spring.version>
-    <google-guava.version>12.0</google-guava.version>
+    <hibernate.version>4.1.7.Final</hibernate.version>
+    <spring.version>3.1.2.RELEASE</spring.version>
+    <google-guava.version>13.0.1</google-guava.version>
     <joda-time.version>2.1</joda-time.version>
-    <slf4j.version>1.6.4</slf4j.version>
-    <h2.version>1.3.167</h2.version>
+    <slf4j.version>1.7.1</slf4j.version>
+    <h2.version>1.3.168</h2.version>
     <scala.version>2.9.1</scala.version>
     <scalate.version>1.5.3</scalate.version>
     <scalamd.version>1.5</scalamd.version>
+    <jetty.version>8.1.7.v20120910</jetty.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>spring-snapshot</id>
+      <name>Spring Maven Milestone Repository</name>
+      <url>http://repo.springsource.org/libs-milestone</url>
+    </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>0.11.0</version>
+      <version>0.11.4</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
       <artifactId>jackson-mapper-asl</artifactId>
-      <version>1.9.7</version>
+      <version>1.9.10</version>
     </dependency>
 
     <dependency>
@@ -85,7 +94,7 @@
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
-      <version>1.1.0.RELEASE</version>
+      <version>1.2.0.M1</version>
     </dependency>
 
     <dependency>
@@ -121,7 +130,7 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.0.3</version>
+      <version>1.0.7</version>
     </dependency>
 
     <dependency>
@@ -152,7 +161,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.20</version>
+      <version>5.1.21</version>
       <scope>provided</scope>
     </dependency>
 
@@ -265,7 +274,7 @@
         <dependency>
           <groupId>mysql</groupId>
           <artifactId>mysql-connector-java</artifactId>
-          <version>5.1.20</version>
+          <version>5.1.21</version>
         </dependency>
       </dependencies>
     </profile>
@@ -276,33 +285,14 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.4</version>
+        <version>2.5.1</version>
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
+          <compilerArguments>
+            <processor>lombok.core.AnnotationProcessor,org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+          </compilerArguments>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.2</version>
-        <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.bsc.maven</groupId>
-        <artifactId>maven-processor-plugin</artifactId>
-        <version>2.0.5</version>
-        <executions>
-          <execution>
-            <id>process</id>
-            <goals>
-              <goal>process</goal>
-            </goals>
-            <phase>process-sources</phase>
-          </execution>
-        </executions>
         <dependencies>
           <dependency>
             <groupId>org.hibernate</groupId>
@@ -313,9 +303,17 @@
         </dependencies>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>2.4.0</version>
+        <version>2.5.2</version>
         <configuration>
           <targetJdk>1.7</targetJdk>
         </configuration>
@@ -330,7 +328,7 @@
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <version>8.1.4.v20120524</version>
+        <version>${jetty.version}</version>
         <configuration>
           <scanIntervalSeconds>0</scanIntervalSeconds>
         </configuration>

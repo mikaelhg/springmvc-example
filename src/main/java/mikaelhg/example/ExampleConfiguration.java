@@ -6,16 +6,17 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.fusesource.scalate.spring.view.ScalateViewResolver;
 import org.postgresql.ds.PGPoolingDataSource;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
-import org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean;
+import org.springframework.dao.support.PersistenceExceptionTranslator;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -37,6 +38,7 @@ import org.springframework.web.servlet.view.JstlView;
  */
 @Configuration
 @EnableWebMvc
+@EnableJpaRepositories(basePackageClasses=ExampleConfiguration.class)
 @EnableTransactionManagement
 @ComponentScan(basePackageClasses=ExampleConfiguration.class)
 public class ExampleConfiguration extends WebMvcConfigurerAdapter {
@@ -109,16 +111,8 @@ public class ExampleConfiguration extends WebMvcConfigurerAdapter {
         }
     }
 
-    @Bean public FactoryBean<ExampleDao> exampleDao(
-            final EntityManagerFactory emf, final BeanFactory beanFactory)
-    {
-        final JpaRepositoryFactoryBean<ExampleDao, Example, Long> ret =
-                new JpaRepositoryFactoryBean<>();
-        ret.setBeanFactory(beanFactory);
-        ret.setEntityManager(emf.createEntityManager());
-        ret.setRepositoryInterface(ExampleDao.class);
-        ret.afterPropertiesSet();
-        return ret;
+    @Bean public PersistenceExceptionTranslator jpaExceptionTranslator() {
+        return new HibernateExceptionTranslator();
     }
 
     @Bean public RequestToViewNameTranslator viewTranslator() {
