@@ -1,9 +1,9 @@
 package mikaelhg.example;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import org.apache.commons.dbcp.BasicDataSource;
 import org.fusesource.scalate.spring.view.ScalateViewResolver;
 import org.postgresql.ds.PGPoolingDataSource;
 import org.springframework.beans.factory.FactoryBean;
@@ -92,14 +92,15 @@ public class ExampleConfiguration extends WebMvcConfigurerAdapter {
 
         @Resource private Environment env;
 
-        @Bean public DataSource dataSource() {
-            final BasicDataSource ret = new BasicDataSource();
-            ret.setUrl(env.getProperty("db.url"));
-            ret.setDriverClassName(
-                    env.getProperty("db.driverClass", "com.mysql.jdbc.Driver"));
-            ret.setUsername(env.getProperty("db.username"));
-            ret.setPassword(env.getProperty("db.password"));
-            ret.setValidationQuery("SELECT 1");
+        @Bean(destroyMethod="close")
+        public DataSource dataSource() throws Exception {
+            final ComboPooledDataSource ret = new ComboPooledDataSource();
+            ret.setJdbcUrl(env.getProperty("db.url"));
+            ret.setDriverClass(env.getProperty("db.driverClass", "com.mysql.jdbc.Driver"));
+            ret.setUser(env.getProperty("db.username"));
+            ret.setPassword(env.getProperty("db.password", ""));
+            ret.setCheckoutTimeout(1000);
+            ret.setUnreturnedConnectionTimeout(1000);
             return ret;
         }
 
