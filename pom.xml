@@ -10,7 +10,7 @@
 
   <artifactId>springmvc-example</artifactId>
   <name>springmvc-example</name>
-  <url>springmvc-example</url>
+  <url>https://github.com/mikaelhg/springmvc-example</url>
 
   <properties>
     <hibernate.version>4.1.7.Final</hibernate.version>
@@ -35,12 +35,11 @@
   </repositories>
 
   <dependencies>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>0.11.4</version>
-      <scope>provided</scope>
-    </dependency>
+      <dependency>
+          <groupId>org.scala-lang</groupId>
+          <artifactId>scala-library</artifactId>
+          <version>${scala.version}</version>
+      </dependency>
 
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
@@ -78,20 +77,31 @@
       <version>1.0.1.Final</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-entitymanager</artifactId>
-      <version>${hibernate.version}</version>
-      <scope>runtime</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>xml-apis</artifactId>
-          <groupId>xml-apis</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+      <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-entitymanager</artifactId>
+          <version>${hibernate.version}</version>
+          <exclusions>
+              <exclusion>
+                  <artifactId>xml-apis</artifactId>
+                  <groupId>xml-apis</groupId>
+              </exclusion>
+          </exclusions>
+      </dependency>
 
-    <dependency>
+      <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-core</artifactId>
+          <version>${hibernate.version}</version>
+          <exclusions>
+              <exclusion>
+                  <artifactId>xml-apis</artifactId>
+                  <groupId>xml-apis</groupId>
+              </exclusion>
+          </exclusions>
+      </dependency>
+
+      <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
       <version>1.2.0.M1</version>
@@ -121,13 +131,19 @@
       <version>${google-guava.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>joda-time</groupId>
-      <artifactId>joda-time</artifactId>
-      <version>${joda-time.version}</version>
-    </dependency>
+      <dependency>
+          <groupId>joda-time</groupId>
+          <artifactId>joda-time</artifactId>
+          <version>${joda-time.version}</version>
+      </dependency>
 
-    <dependency>
+      <dependency>
+          <groupId>org.joda</groupId>
+          <artifactId>joda-convert</artifactId>
+          <version>1.2</version>
+      </dependency>
+
+      <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.0.7</version>
@@ -282,6 +298,19 @@
 
   <build>
     <plugins>
+        <plugin>
+            <groupId>org.scala-tools</groupId>
+            <artifactId>maven-scala-plugin</artifactId>
+            <version>2.15.2</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>compile</goal>
+                        <goal>testCompile</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -290,7 +319,7 @@
           <source>1.7</source>
           <target>1.7</target>
           <compilerArguments>
-            <processor>lombok.core.AnnotationProcessor,org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+            <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
           </compilerArguments>
         </configuration>
         <dependencies>
@@ -308,21 +337,6 @@
         <version>2.2</version>
         <configuration>
           <failOnMissingWebXml>false</failOnMissingWebXml>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>2.5.2</version>
-        <configuration>
-          <targetJdk>1.7</targetJdk>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>2.7.1</version>
-        <configuration>
-          <targetJdk>1.7</targetJdk>
         </configuration>
       </plugin>
       <plugin>
