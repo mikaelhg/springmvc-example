@@ -2,6 +2,8 @@ package mikaelhg.example
 
 import javax.persistence._
 import scala.reflect._
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 
 @Entity(name="examples")
 class Example extends Id {
@@ -14,6 +16,13 @@ class Example extends Id {
     name = newName
   }
 
+}
+
+abstract trait ExampleDao extends JpaRepository[Example, java.lang.Long] {
+  def findByNameLike(nameLike: String): java.util.List[Example]
+
+  @Query("SELECT e FROM mikaelhg.example.Example e WHERE e.name LIKE '%y%'")
+  def findComedies: java.util.List[Example]
 }
 
 trait Id {

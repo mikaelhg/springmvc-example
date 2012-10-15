@@ -5,7 +5,6 @@ import org.joda.time.DateTime._
 import org.joda.time.DateTimeConstants.MONDAY
 import javax.annotation.Resource
 import annotation.target.field
-import reflect.BeanProperty
 
 @org.springframework.stereotype.Service
 class ExampleService {
