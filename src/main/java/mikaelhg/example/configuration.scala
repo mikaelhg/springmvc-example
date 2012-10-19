@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.springframework.jdbc.datasource.embedded.{EmbeddedDatabaseType, EmbeddedDatabaseBuilder}
 import org.springframework.orm.jpa.{JpaTransactionManager, LocalContainerEntityManagerFactoryBean, JpaVendorAdapter}
-import org.springframework.orm.jpa.vendor.{Database, HibernateJpaVendorAdapter}
+import org.springframework.orm.jpa.vendor.{HibernateJpaDialect, Database, HibernateJpaVendorAdapter}
 import javax.sql.DataSource
 import org.postgresql.ds.PGPoolingDataSource
 import javax.annotation.Resource
@@ -17,18 +17,19 @@ import org.springframework.web.servlet.view.{JstlView, InternalResourceViewResol
 import org.fusesource.scalate.spring.view.ScalateViewResolver
 import javax.persistence.EntityManagerFactory
 import org.springframework.web.WebApplicationInitializer
-import javax.servlet.{ServletRegistration, ServletContext}
+import javax.servlet.ServletContext
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext
 import org.springframework.web.context.ContextLoaderListener
 import org.springframework.web.servlet.DispatcherServlet
+import org.springframework.data.rest.webmvc.RepositoryRestMvcConfiguration
 
 class ExampleApplication extends WebApplicationInitializer {
   override def onStartup(container: ServletContext) {
-    val rootContext: AnnotationConfigWebApplicationContext = new AnnotationConfigWebApplicationContext
+    val rootContext = new AnnotationConfigWebApplicationContext
     container.addListener(new ContextLoaderListener(rootContext))
-    val dispatcherContext: AnnotationConfigWebApplicationContext = new AnnotationConfigWebApplicationContext
-    dispatcherContext.register(classOf[mikaelhg.example.ExampleConfiguration])
-    val dispatcher: ServletRegistration.Dynamic = container.addServlet("dispatcher", new DispatcherServlet(dispatcherContext))
+    val dispatcherContext = new AnnotationConfigWebApplicationContext
+    dispatcherContext.register(classOf[ExampleConfiguration])
+    val dispatcher = container.addServlet("dispatcher", new DispatcherServlet(dispatcherContext))
     dispatcher.setLoadOnStartup(1)
     dispatcher.addMapping("/*")
   }
@@ -101,6 +102,10 @@ class MySQLProfileConfiguration {
 @EnableWebMvc
 @EnableTransactionManagement(proxyTargetClass = true) // Can't use Scala + Spring without using CGLIB proxies
 class ExampleConfiguration extends WebMvcConfigurerAdapter {
+
+  @Bean def repositoryRestMvcConfiguration() = new RepositoryRestMvcConfiguration
+
+  @Bean def jpaVendorDialect() = new HibernateJpaDialect
 
   @Bean def jpaExceptionTranslator() = new HibernateExceptionTranslator
 

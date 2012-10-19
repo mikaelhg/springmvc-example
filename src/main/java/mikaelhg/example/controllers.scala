@@ -5,6 +5,7 @@ import org.springframework.ui.ModelMap
 import scala.Array
 import annotation.target.field
 import javax.annotation.Resource
+import collection.mutable
 
 /**
  * This example application has only a single Spring MVC web controller,
@@ -22,10 +23,6 @@ class ExampleController {
     model.put("comedies", exampleDao.findComedies)
     "index"
   }
-
-  @RequestMapping(value = Array("/examples"), produces = Array("application/json"))
-  @ResponseBody
-  def listExamples = exampleDao.findAll
 
   @RequestMapping(value = Array("/submitExample"), method = Array(RequestMethod.POST))
   def submitExample(@RequestParam name: String) = {

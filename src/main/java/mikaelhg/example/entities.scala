@@ -4,6 +4,7 @@ import javax.persistence._
 import scala.reflect._
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
+import org.springframework.data.rest.repository.annotation.RestResource
 
 @Entity(name="examples")
 class Example extends Id {
@@ -18,6 +19,7 @@ class Example extends Id {
 
 }
 
+@RestResource(path = "examples")
 abstract trait ExampleDao extends JpaRepository[Example, java.lang.Long] {
   def findByNameLike(nameLike: String): java.util.List[Example]
 
