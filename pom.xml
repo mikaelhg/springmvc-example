@@ -15,7 +15,6 @@
   <properties>
     <hibernate.version>4.1.7.Final</hibernate.version>
     <spring.version>3.1.2.RELEASE</spring.version>
-    <google-guava.version>13.0.1</google-guava.version>
     <joda-time.version>2.1</joda-time.version>
     <slf4j.version>1.7.1</slf4j.version>
     <h2.version>1.3.168</h2.version>
@@ -26,13 +25,13 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <repositories>
-    <repository>
-      <id>spring-snapshot</id>
-      <name>Spring Maven Milestone Repository</name>
-      <url>http://repo.springsource.org/libs-milestone</url>
-    </repository>
-  </repositories>
+    <repositories>
+        <repository>
+            <id>spring-snapshot</id>
+            <name>Spring Maven RELEASE Repository</name>
+            <url>http://repo.springsource.org/libs-release</url>
+        </repository>
+    </repositories>
 
   <dependencies>
       <dependency>
@@ -102,10 +101,16 @@
       </dependency>
 
       <dependency>
-      <groupId>org.springframework.data</groupId>
-      <artifactId>spring-data-jpa</artifactId>
-      <version>1.2.0.M1</version>
-    </dependency>
+          <groupId>org.springframework.data</groupId>
+          <artifactId>spring-data-jpa</artifactId>
+          <version>1.2.0.RELEASE</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.springframework.data</groupId>
+          <artifactId>spring-data-rest-webmvc</artifactId>
+          <version>1.0.0.RELEASE</version>
+      </dependency>
 
     <dependency>
       <groupId>javax.validation</groupId>
@@ -123,12 +128,6 @@
       <groupId>cglib</groupId>
       <artifactId>cglib</artifactId>
       <version>2.2.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>${google-guava.version}</version>
     </dependency>
 
       <dependency>
