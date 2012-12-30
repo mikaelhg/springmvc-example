@@ -112,32 +112,39 @@ class ExampleConfiguration extends WebMvcConfigurerAdapter {
   @Bean def viewTranslator() = new DefaultRequestToViewNameTranslator
 
   @Bean
-  def scalateViewResolver() = new ScalateViewResolver {
-    setOrder(1)
-    setPrefix("/WEB-INF/view/")
-    setSuffix(".scaml")
+  def scalateViewResolver() = {
+      val ret = new ScalateViewResolver
+      ret.setOrder(1)
+      ret.setPrefix("/WEB-INF/view/")
+      ret.setSuffix(".scaml")
+      ret
   }
 
   @Bean
-  def internalResourceViewResolver() = new InternalResourceViewResolver {
-    setOrder(2)
-    setViewClass(classOf[JstlView])
-    setPrefix("/WEB-INF/jsp/")
-    setSuffix(".jsp")
+  def internalResourceViewResolver() = {
+    val ret = new InternalResourceViewResolver
+    ret.setOrder(2)
+    ret.setViewClass(classOf[JstlView])
+    ret.setPrefix("/WEB-INF/jsp/")
+    ret.setSuffix(".jsp")
+    ret
   }
 
   @Bean
-  def entityManagerFactory(ds: DataSource, jva: JpaVendorAdapter) =
-    new LocalContainerEntityManagerFactoryBean {
-      setPackagesToScan("mikaelhg.example")
-      setDataSource(ds)
-      setJpaVendorAdapter(jva)
-      afterPropertiesSet
-    }
+  def entityManagerFactory(ds: DataSource, jva: JpaVendorAdapter) = {
+    val ret = new LocalContainerEntityManagerFactoryBean
+    ret.setPackagesToScan("mikaelhg.example")
+    ret.setDataSource(ds)
+    ret.setJpaVendorAdapter(jva)
+    ret.afterPropertiesSet
+    ret
+  }
 
   @Bean
-  def transactionManager(emf: EntityManagerFactory) = new JpaTransactionManager {
-    setEntityManagerFactory(emf)
+  def transactionManager(emf: EntityManagerFactory) = {
+    val ret = new JpaTransactionManager
+    ret.setEntityManagerFactory(emf)
+    ret
   }
 
   override def addResourceHandlers(reg: ResourceHandlerRegistry) {
