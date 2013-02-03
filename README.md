@@ -1,19 +1,23 @@
-# Servlet 3.0 / Spring 3.1 MVC / JPA application skeleton
+# Servlet 3.0 / Spring 3.2 MVC / JPA application skeleton
 
 This skeleton contains:
 
-* ExampleApplication.java: A Servlet 3.0 / Spring 3.1 application startup class
-* ExampleConfiguration.java: A Spring 3.1 programmatic configuration class, with development and production profiles
+* ExampleApplication.java: A Servlet 3.0 / Spring 3.2 application startup class
+* ExampleConfiguration.java: A Spring 3.2 programmatic configuration class, with development and production profiles
 * ExampleController.java: A simple, annotation-configured front end for all HTTP web requests
 * ExampleService.java: A business service skeleton, demonstrating Google Guice and Joda-Time
 * ExampleDao.java: A Spring Data JPA compatible DAO interface, CRUD with minimal boilerplate
 * Example.java: A skeleton JPA entity class with Lombok autogenerating the getters and setters required by the spec
-* index.scaml: A HAML/Scaml view template, for lean HTML generation
+* index.html: A Thymeleaf view template, for lean HTML generation
 
 ## If you develop with Eclipse...
 
 If you develop with Eclipse, you'll need to install Lombok's Eclipse support
 as described at http://projectlombok.org/download.html
+
+## If you develop with IntelliJ IDEA...
+
+You'll need to install the Lombok plugin from the IDEA plugin list.
 
 ## Set up for JRebel
 
