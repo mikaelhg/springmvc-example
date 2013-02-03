@@ -4,7 +4,6 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import org.fusesource.scalate.spring.view.ScalateViewResolver;
 import org.postgresql.ds.PGPoolingDataSource;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +31,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.thymeleaf.spring3.SpringTemplateEngine;
+import org.thymeleaf.spring3.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 /**
  * The application Spring Framework configuration class.
@@ -120,12 +123,21 @@ public class ExampleConfiguration extends WebMvcConfigurerAdapter {
         return new DefaultRequestToViewNameTranslator();
     }
 
-    @Bean public ViewResolver scalateViewResolver() {
-        final ScalateViewResolver ret = new ScalateViewResolver();
-        ret.setOrder(1);
-        ret.setPrefix("/WEB-INF/view/");
-        ret.setSuffix(".scaml");
-        return ret;
+    @Bean public ViewResolver viewResolver() {
+        final ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
+        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setPrefix("/WEB-INF/view/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setCacheable(false);
+
+        final SpringTemplateEngine engine = new SpringTemplateEngine();
+        engine.setTemplateResolver(templateResolver);
+
+        final ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(engine);
+        viewResolver.setOrder(1);
+
+        return viewResolver;
     }
 
     @Bean public ViewResolver internalResourceViewResolver() {
