@@ -39,4 +39,10 @@ public class ExampleController {
         return "redirect:/";
     }
 
+    @RequestMapping(value="/updateExample", method=RequestMethod.POST)
+    public String updateExample(@RequestParam final Long pk, @RequestParam final String value) {
+        svc.updateExample(pk, value);
+        return "redirect:/";
+    }
+
 }

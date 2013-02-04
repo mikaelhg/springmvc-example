@@ -44,4 +44,14 @@ public class ExampleService {
         }
     }
 
+    @Transactional
+    public boolean updateExample(final Long id, final String name) {
+        final Example example = dao.findOne(id);
+        if (example != null) {
+            example.setName(name);
+            return null != dao.save(example);
+        }
+        return false;
+    }
+
 }
