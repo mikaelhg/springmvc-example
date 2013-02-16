@@ -2,12 +2,12 @@ package mikaelhg.example;
 
 import java.util.List;
 import javax.annotation.Resource;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * This example application has only a single Spring MVC web controller,
@@ -21,8 +21,11 @@ public class ExampleController {
 
     @Resource private ExampleDao dao;
 
-    @RequestMapping("/")
-    public String welcome(final ModelMap model) {
+    @RequestMapping(value="/", produces="text/html;charset=UTF-8")
+    public String welcome(final ModelMap model, final HttpServletResponse response) {
+        response.setHeader("Pragma","No-cache");
+        response.setHeader("Cache-Control","no-cache");
+        response.setDateHeader("Expires", 0);
         model.put("examples", dao.findAll());
         model.put("comedies", dao.findComedies());
         return "index";
