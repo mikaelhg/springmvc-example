@@ -21,7 +21,7 @@ public class ExampleController {
 
     @Resource private ExampleDao dao;
 
-    @RequestMapping(value="/", produces="text/html;charset=UTF-8")
+    @RequestMapping(value="/")
     public String welcome(final ModelMap model, final HttpServletResponse response) {
         response.setHeader("Pragma","No-cache");
         response.setHeader("Cache-Control","no-cache");
