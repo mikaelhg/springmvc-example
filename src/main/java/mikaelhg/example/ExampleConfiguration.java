@@ -74,12 +74,14 @@ public class ExampleConfiguration extends WebMvcConfigurerAdapter {
 
         @Resource private Environment env;
 
-        @Bean public DataSource dataSource() {
-            final PGPoolingDataSource ret = new PGPoolingDataSource();
-            ret.setServerName(env.getProperty("db.servername"));
-            ret.setDatabaseName(env.getProperty("db.databasename"));
-            ret.setUser(env.getProperty("db.user"));
-            ret.setPassword(env.getProperty("db.password"));
+        @Bean public DataSource dataSource() throws Exception {
+            final ComboPooledDataSource ret = new ComboPooledDataSource();
+            ret.setDriverClass(env.getProperty("db.driverClass", "org.postgresql.Driver"));
+            ret.setUser(env.getProperty("db.username"));
+            ret.setPassword(env.getProperty("db.password", ""));
+            ret.setJdbcUrl(env.getProperty("db.url"));
+            ret.setCheckoutTimeout(1000);
+            ret.setUnreturnedConnectionTimeout(1000);
             return ret;
         }
 
@@ -100,10 +102,10 @@ public class ExampleConfiguration extends WebMvcConfigurerAdapter {
         @Bean(destroyMethod="close")
         public DataSource dataSource() throws Exception {
             final ComboPooledDataSource ret = new ComboPooledDataSource();
-            ret.setJdbcUrl(env.getProperty("db.url"));
             ret.setDriverClass(env.getProperty("db.driverClass", "com.mysql.jdbc.Driver"));
             ret.setUser(env.getProperty("db.username"));
             ret.setPassword(env.getProperty("db.password", ""));
+            ret.setJdbcUrl(env.getProperty("db.url"));
             ret.setCheckoutTimeout(1000);
             ret.setUnreturnedConnectionTimeout(1000);
             return ret;
