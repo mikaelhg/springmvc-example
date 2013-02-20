@@ -29,7 +29,7 @@ JRebel, or a commercial one, if your project pays for it: http://zeroturnaround.
 
 ## Production mode
     mvn-jrebel -P postgresql -Dspring.profiles.active=postgresql \
-      -Ddb.url=jdbc:postgres://localhost/database  \
+      -Ddb.url=jdbc:postgresql://localhost/database  \
       -Ddb.user=username -Ddb.password=password \
       jetty:run
 
