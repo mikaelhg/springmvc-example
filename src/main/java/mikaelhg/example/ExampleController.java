@@ -2,9 +2,9 @@ package mikaelhg.example;
 
 import java.util.List;
 import javax.annotation.Resource;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,7 @@ public class ExampleController {
         response.setHeader("Pragma","No-cache");
         response.setHeader("Cache-Control","no-cache");
         response.setDateHeader("Expires", 0);
-        model.put("examples", dao.findAll());
+        model.put("examples", dao.findAll(new Sort("id")));
         model.put("comedies", dao.findComedies());
         return "index";
     }
