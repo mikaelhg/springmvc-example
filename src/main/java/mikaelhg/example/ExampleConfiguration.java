@@ -176,6 +176,8 @@ public class ExampleConfiguration extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(final ResourceHandlerRegistry reg) {
         reg.addResourceHandler("/resources/**")
                 .addResourceLocations("/WEB-INF/resources/");
+        reg.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
 }
