@@ -19,6 +19,9 @@ as described at http://projectlombok.org/download.html
 
 You'll need to install the Lombok plugin from the IDEA plugin list.
 
+To get the IDEA "Make module..." functionality to work with the Lombok plugin, in project settings,
+enable Compiler -> Use External Build, as well as well as Compiler -> Annotation Processor -> Enable Annotation Processing.
+
 ## Set up for JRebel
 
 For easy save-and-reload development, get a free social license of ZeroTurnaround
