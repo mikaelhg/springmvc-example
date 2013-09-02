@@ -27,16 +27,18 @@ enable Compiler -> Use External Build, as well as well as Compiler -> Annotation
 For easy save-and-reload development, get a free social license of ZeroTurnaround
 JRebel, or a commercial one, if your project pays for it: http://zeroturnaround.com/jrebel/
 
-## Development mode
+## Run the example
+
+### Development mode (H2 embedded database)
     mvn-jrebel jetty:run
 
-## Production mode
+### Production mode (PostgreSQL)
     mvn-jrebel -P postgresql -Dspring.profiles.active=postgresql \
       -Ddb.url=jdbc:postgresql://localhost/database  \
-      -Ddb.user=username -Ddb.password=password \
+      -Ddb.username=username -Ddb.password=password \
       jetty:run
 
-## MySQL mode
+### Legacy mode (MySQL)
     mvn-jrebel -P mysql -Dspring.profiles.active=mysql \
       -Ddb.url=jdbc:mysql://localhost/database  \
       -Ddb.username=username -Ddb.password=password \
