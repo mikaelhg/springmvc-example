@@ -1,14 +1,7 @@
 spring:
-  # The name of the application
-  application.name: mikaelhg's Spring example
-
-  # The name of the main config file, default is application
+  application.name: mikaelhg's Spring Boot MVC example
   config.name: springmvc-example
 
-  # Profiles that should be active
-#  profiles.active:
-
-  # Configuration for SpringApplication setters
   main:
     web-environment: true
     show-banner: true
@@ -17,59 +10,37 @@ spring:
 server:
   port: 8080
   address: 127.0.0.1
-  sessionTimeout: 30
-  contextPath: /root
-
-  # Tomcat specifics
-  tomcat:
-    accessLogEnabled: false
-    protocolHeader: x-forwarded-proto
-    remoteIpHeader: x-forwarded-for
-    basedir:
-    backgroundProcessorDelay: 30 # secs
-
-#  database:
-#    schema: classpath*:schema-<platform>.sql
-#    platform: all
-
-#  datasource:
-#    driverClassName:
-#    url:
-#    username: sa
-#    password:
-#    max-active: 8
-#    max-idle: 8
-#    test-on-borrow:
-#    test-on-return:
-#    validation-query:
-
-#  jpa:
-#    open-in-view:
-#    show-sql:
-#    database-platform:
-#    generate-ddl:
-#    properties:
-#    hibernate:
-#      naming-strategy:
-#      cache-provider:
-#      ddl-auto:
-
-#  thymeleaf:
-#    prefix: classpath:/templates/
-#    suffix: .html
-#    mode: HTML5
-#    cache: true
-
-database: H2
+  sessionTimeout: 0
 
 ---
-spring:
-  profiles: postgresql
+spring.profiles: default
 
-database: POSTGRESQL
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+  database:
+    platform: h2
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
 
 ---
-spring:
-  profiles: mysql
+spring.profiles: postgresql
 
-database: MYSQL
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+  database:
+    platform: postgresql
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+---
+spring.profiles: mysql
+
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+  database:
+    platform: mysql
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
