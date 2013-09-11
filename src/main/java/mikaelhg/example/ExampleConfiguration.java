@@ -2,6 +2,7 @@ package mikaelhg.example;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -49,6 +50,9 @@ public class ExampleConfiguration {
         SpringApplication.run(ExampleConfiguration.class, args);
     }
 
+    @Value("${database}")
+    private String database;
+
     @Configuration
     @Profile("default")
     public static class DevelopmentProfileConfiguration {
@@ -61,12 +65,13 @@ public class ExampleConfiguration {
                     .build();
         }
 
-        @Bean public JpaVendorAdapter jpaVendorAdapter() {
-            final HibernateJpaVendorAdapter ret =
-                    new HibernateJpaVendorAdapter();
-            ret.setDatabase(Database.H2);
-            return ret;
-        }
+    }
+
+    @Bean public JpaVendorAdapter jpaVendorAdapter() {
+        final HibernateJpaVendorAdapter ret =
+                new HibernateJpaVendorAdapter();
+        ret.setDatabase(Database.valueOf(database));
+        return ret;
     }
 
     @Configuration
@@ -86,12 +91,6 @@ public class ExampleConfiguration {
             return ret;
         }
 
-        @Bean public JpaVendorAdapter jpaVendorAdapter() {
-            final HibernateJpaVendorAdapter ret =
-                    new HibernateJpaVendorAdapter();
-            ret.setDatabase(Database.POSTGRESQL);
-            return ret;
-        }
     }
 
     @Configuration
@@ -112,12 +111,6 @@ public class ExampleConfiguration {
             return ret;
         }
 
-        @Bean public JpaVendorAdapter jpaVendorAdapter() {
-            final HibernateJpaVendorAdapter ret =
-                    new HibernateJpaVendorAdapter();
-            ret.setDatabase(Database.MYSQL);
-            return ret;
-        }
     }
 
 }
