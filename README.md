@@ -39,15 +39,15 @@ When Spring Boot matures out of alpha, I'll fix the Production and Legacy modes.
 ### Production mode (PostgreSQL)
 
     mvn -Dspring.profiles.active=postgresql \
-      -Dspring.datasource.url=jdbc:postgresql://localhost/database \
-      -Dspring.datasource.username=username \
-      -Dspring.datasource.password=password \
+      -Dspring.database.url=jdbc:postgresql://localhost/database \
+      -Dspring.database.username=username \
+      -Dspring.database.password=password \
       exec:java
 
 ### Legacy mode (MySQL)
 
     mvn -Dspring.profiles.active=mysql \
-      -Dspring.datasource.url=jdbc:mysql://localhost/database \
-      -Dspring.datasource.username=username \
-      -Dspring.datasource.password=password \
+      -Dspring.database.url=jdbc:mysql://localhost/database \
+      -Dspring.database.username=username \
+      -Dspring.database.password=password \
       exec:java
