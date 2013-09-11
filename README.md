@@ -1,8 +1,7 @@
-# Servlet 3.0 / Spring 3.2 MVC / JPA application skeleton
+# Spring Boot / Spring MVC sample application
 
 This skeleton contains:
 
-* ExampleApplication.java: A Servlet 3.0 / Spring 3.2 application startup class
 * ExampleConfiguration.java: A Spring 3.2 programmatic configuration class, with development and production profiles
 * ExampleController.java: A simple, annotation-configured front end for all HTTP web requests
 * ExampleService.java: A business service skeleton, demonstrating Google Guava and Joda-Time
@@ -30,16 +29,19 @@ JRebel, or a commercial one, if your project pays for it: http://zeroturnaround.
 ## Run the example
 
 ### Development mode (H2 embedded database)
-    mvn-jrebel jetty:run
+
+    mvn exec:java
 
 ### Production mode (PostgreSQL)
-    mvn-jrebel -P postgresql -Dspring.profiles.active=postgresql \
-      -Ddb.url=jdbc:postgresql://localhost/database  \
+
+    mvn -P postgresql -Dspring.profiles.active=postgresql \
+      -Ddb.url=jdbc:postgresql://localhost/database \
       -Ddb.username=username -Ddb.password=password \
-      jetty:run
+      exec:java
 
 ### Legacy mode (MySQL)
-    mvn-jrebel -P mysql -Dspring.profiles.active=mysql \
-      -Ddb.url=jdbc:mysql://localhost/database  \
+
+    mvn -P mysql -Dspring.profiles.active=mysql \
+      -Ddb.url=jdbc:mysql://localhost/database \
       -Ddb.username=username -Ddb.password=password \
-      jetty:run
+      exec:java

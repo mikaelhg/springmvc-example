@@ -2,6 +2,8 @@ package mikaelhg.example;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -39,11 +41,13 @@ import javax.sql.DataSource;
  * The application Spring Framework configuration class.
  */
 @Configuration
-@EnableWebMvc
-@EnableJpaRepositories(basePackageClasses=ExampleConfiguration.class)
-@EnableTransactionManagement
-@ComponentScan(basePackageClasses=ExampleConfiguration.class)
-public class ExampleConfiguration extends WebMvcConfigurerAdapter {
+@ComponentScan
+@EnableAutoConfiguration
+public class ExampleConfiguration {
+
+    public static void main(final String ... args) {
+        SpringApplication.run(ExampleConfiguration.class, args);
+    }
 
     @Configuration
     @Profile("default")
@@ -114,70 +118,6 @@ public class ExampleConfiguration extends WebMvcConfigurerAdapter {
             ret.setDatabase(Database.MYSQL);
             return ret;
         }
-    }
-
-    @Bean public PersistenceExceptionTranslator jpaExceptionTranslator() {
-        return new HibernateExceptionTranslator();
-    }
-
-    @Bean public RequestToViewNameTranslator viewTranslator() {
-        return new DefaultRequestToViewNameTranslator();
-    }
-
-    @Bean public ViewResolver viewResolver() {
-        final ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
-        templateResolver.setTemplateMode("HTML5");
-        templateResolver.setPrefix("/WEB-INF/view/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setCacheable(false);
-
-        final SpringTemplateEngine engine = new SpringTemplateEngine();
-        engine.setTemplateResolver(templateResolver);
-
-        final ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-        viewResolver.setTemplateEngine(engine);
-        viewResolver.setCharacterEncoding("UTF-8");
-        viewResolver.setOrder(1);
-
-        return viewResolver;
-    }
-
-    @Bean public ViewResolver internalResourceViewResolver() {
-        final InternalResourceViewResolver ret =
-                new InternalResourceViewResolver();
-        ret.setOrder(2);
-        ret.setViewClass(JstlView.class);
-        ret.setPrefix("/WEB-INF/jsp/");
-        ret.setSuffix(".jsp");
-        return ret;
-    }
-
-    @Bean public FactoryBean<EntityManagerFactory> entityManagerFactory(
-            final DataSource ds, final JpaVendorAdapter jva)
-    {
-        final LocalContainerEntityManagerFactoryBean ret =
-                new LocalContainerEntityManagerFactoryBean();
-        ret.setPackagesToScan("mikaelhg.example");
-        ret.setDataSource(ds);
-        ret.setJpaVendorAdapter(jva);
-        ret.afterPropertiesSet();
-        return ret;
-    }
-
-    @Bean public PlatformTransactionManager transactionManager(
-            final EntityManagerFactory emf)
-    {
-        final JpaTransactionManager ret = new JpaTransactionManager();
-        ret.setEntityManagerFactory(emf);
-        return ret;
-    }
-
-    @Override
-    public void addResourceHandlers(final ResourceHandlerRegistry reg) {
-        reg.addResourceHandler("/resources/**")
-                .addResourceLocations("/WEB-INF/resources/");
-        reg.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
 }
