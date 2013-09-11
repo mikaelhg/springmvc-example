@@ -7,6 +7,10 @@ spring:
     show-banner: true
     log-startup-info: false
 
+  jpa.show-sql: false
+
+  thymeleaf.cache: true
+
 server:
   port: 8080
   address: 127.0.0.1
@@ -17,6 +21,7 @@ spring.profiles: default
 
 spring.database.platform: h2
 spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+spring.thymeleaf.cache: false
 
 ---
 spring.profiles: postgresql

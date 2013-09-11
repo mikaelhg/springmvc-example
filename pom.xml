@@ -26,10 +26,6 @@
 
     <repositories>
         <repository>
-            <id>maven2.gueck.com-releases</id>
-            <url>http://maven2.gueck.com/releases</url>
-        </repository>
-        <repository>
             <id>sonatype-releases</id>
             <url>http://oss.sonatype.org/content/repositories/releases/</url>
         </repository>
@@ -91,6 +87,12 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -116,12 +118,6 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>${joda-time.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.gueck</groupId>
-            <artifactId>encodingfilter</artifactId>
-            <version>1.0</version>
         </dependency>
 
         <dependency>
@@ -152,12 +148,6 @@
             <groupId>org.webjars</groupId>
             <artifactId>x-editable-bootstrap</artifactId>
             <version>1.4.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.0.13</version>
         </dependency>
 
         <dependency>
