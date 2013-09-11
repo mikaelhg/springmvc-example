@@ -32,16 +32,22 @@ JRebel, or a commercial one, if your project pays for it: http://zeroturnaround.
 
     mvn exec:java
 
+## Broken: Production and Legacy modes
+
+When Spring Boot matures out of alpha, I'll fix the Production and Legacy modes. Currently, the autodetected
+
 ### Production mode (PostgreSQL)
 
-    mvn -P postgresql -Dspring.profiles.active=postgresql \
-      -Ddb.url=jdbc:postgresql://localhost/database \
-      -Ddb.username=username -Ddb.password=password \
+    mvn -Dspring.profiles.active=postgresql \
+      -Dspring.datasource.url=jdbc:postgresql://localhost/database \
+      -Dspring.datasource.username=username \
+      -Dspring.datasource.password=password \
       exec:java
 
 ### Legacy mode (MySQL)
 
-    mvn -P mysql -Dspring.profiles.active=mysql \
-      -Ddb.url=jdbc:mysql://localhost/database \
-      -Ddb.username=username -Ddb.password=password \
+    mvn -Dspring.profiles.active=mysql \
+      -Dspring.datasource.url=jdbc:mysql://localhost/database \
+      -Dspring.datasource.username=username \
+      -Dspring.datasource.password=password \
       exec:java

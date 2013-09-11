@@ -15,32 +15,29 @@ server:
 ---
 spring.profiles: default
 
-spring:
-  datasource:
-    driverClassName: org.h2.Driver
-  database:
-    platform: h2
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+spring.database.platform: h2
+spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
 
 ---
 spring.profiles: postgresql
 
+# TODO: NEEDS FIXING WHEN SPRING BOOT FIXES NON-EMBEDDED AUTODETECTION
+
 spring:
-  datasource:
-    driverClassName: org.postgresql.Driver
   database:
     platform: postgresql
+    driverClassName: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 ---
 spring.profiles: mysql
 
+# TODO: NEEDS FIXING WHEN SPRING BOOT FIXES NON-EMBEDDED AUTODETECTION
+
 spring:
-  datasource:
-    driverClassName: com.mysql.jdbc.Driver
   database:
     platform: mysql
+    driverClassName: com.mysql.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
