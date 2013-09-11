@@ -4,6 +4,9 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,12 +17,18 @@ import org.springframework.web.bind.annotation.*;
  * which serves HTTP requests.
  */
 @Controller
+@ComponentScan
+@EnableAutoConfiguration
 @lombok.extern.slf4j.Slf4j
 public class ExampleController {
 
     @Resource private ExampleService svc;
 
     @Resource private ExampleDao dao;
+
+    public static void main(final String ... args) {
+        SpringApplication.run(ExampleController.class, args);
+    }
 
     @RequestMapping(value="/")
     public String welcome(final ModelMap model, final HttpServletResponse response) {
