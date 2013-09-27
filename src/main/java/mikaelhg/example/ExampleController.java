@@ -1,19 +1,15 @@
 package mikaelhg.example;
 
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-
-import com.google.common.collect.ImmutableMap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * This example application has only a single Spring MVC web controller,
@@ -28,8 +24,6 @@ public class ExampleController {
     @Resource private ExampleService svc;
 
     @Resource private ExampleDao dao;
-
-    private final static String ENCODING = "application/json;charset=UTF-8";
 
     public static void main(final String ... args) {
         SpringApplication.run(ExampleController.class, args);

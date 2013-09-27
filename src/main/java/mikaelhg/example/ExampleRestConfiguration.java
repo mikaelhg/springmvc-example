@@ -8,5 +8,4 @@ import org.springframework.hateoas.config.EnableHypermediaSupport;
 @EnableHypermediaSupport
 public class ExampleRestConfiguration extends RepositoryRestMvcConfiguration {
 
-
 }
