@@ -19,13 +19,22 @@
     </parent>
 
     <properties>
+        <spring-data-jpa.version>1.4.1.RELEASE</spring-data-jpa.version>
+        <spring-data-mongo.version>1.3.1.RELEASE</spring-data-mongo.version>
+        <spring-data-rest.version>2.0.0.BUILD-SNAPSHOT</spring-data-rest.version>
+        <spring-hateoas.version>0.8.0.RELEASE</spring-hateoas.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <repositories>
         <repository>
             <id>spring-milestones</id>
-            <url>http://repo.springsource.org/milestone</url>
+            <url>http://repo.spring.io/milestone</url>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+        <repository>
+            <id>spring-snapshot</id>
+            <url>http://repo.spring.io/snapshot</url>
             <snapshots><enabled>true</enabled></snapshots>
         </repository>
     </repositories>
@@ -33,7 +42,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>spring-milestones</id>
-            <url>http://repo.springsource.org/milestone</url>
+            <url>http://repo.spring.io/milestone</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -92,6 +101,17 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.hateoas</groupId>
+            <artifactId>spring-hateoas</artifactId>
+            <version>${spring-hateoas.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-webmvc</artifactId>
+            <version>${spring-data-rest.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>1.13</version>
@@ -144,6 +164,18 @@
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>2.0.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angularjs</artifactId>
+            <version>1.2.0rc1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angular-strap</artifactId>
+            <version>0.7.4</version>
         </dependency>
 
         <dependency>

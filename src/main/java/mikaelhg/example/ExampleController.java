@@ -45,38 +45,4 @@ public class ExampleController {
         return "index";
     }
 
-    /**
-     * Alas, Ember.js doesn't support JSON arrays directly, so we'll have to wrap
-     * the results in a map before writing a better REST adapter.
-     * http://stackoverflow.com/questions/16887507/ember-js-rest-adapter-handling-different-json-structure
-     * https://github.com/toranb/ember-data-django-rest-adapter/blob/master/packages/ember-data-django-rest-adapter/lib/adapter.js
-     */
-    @RequestMapping(value="/examples", method=GET, produces=ENCODING)
-    public @ResponseBody Map<String, List<Example>> listExamples() {
-        return ImmutableMap.of("examples", dao.findAll());
-    }
-
-    @RequestMapping(value="/examples", method=PUT, produces=ENCODING)
-    public @ResponseBody Example createExample(final @RequestBody Example example) {
-        return dao.saveAndFlush(example);
-    }
-
-    @RequestMapping(value="/examples/{id}", method=GET, produces=ENCODING)
-    public @ResponseBody Example readExample(final @PathVariable Long id) {
-        return dao.findOne(id);
-    }
-
-    @RequestMapping(value="/examples/{id}", method=PUT, produces=ENCODING)
-    public @ResponseBody Example updateExample(final @PathVariable Long id, final @RequestBody Example example) {
-        final Example old = dao.findOne(id);
-        example.setId(old.getId());
-        return dao.saveAndFlush(example);
-    }
-
-    @RequestMapping(value="/examples/{id}", method=DELETE, produces=ENCODING)
-    public @ResponseBody void deleteExample(final @PathVariable Long id) {
-        final Example old = dao.findOne(id);
-        dao.delete(old);
-    }
-
 }
