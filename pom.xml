@@ -36,12 +36,6 @@
                 <updatePolicy>daily</updatePolicy>
             </snapshots>
         </repository>
-        <repository>
-            <id>spring-milestones</id>
-            <url>http://repo.spring.io/milestone</url>
-            <releases><enabled>false</enabled></releases>
-            <snapshots><enabled>false</enabled></snapshots>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -218,7 +212,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.0.0.M3</version>
+            <version>4.0.0.BUILD-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 
