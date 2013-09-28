@@ -30,11 +30,13 @@
         <repository>
             <id>spring-milestones</id>
             <url>http://repo.spring.io/milestone</url>
-            <snapshots><enabled>true</enabled></snapshots>
+            <releases><enabled>false</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
         </repository>
         <repository>
             <id>spring-snapshot</id>
             <url>http://repo.spring.io/snapshot</url>
+            <releases><enabled>false</enabled></releases>
             <snapshots><enabled>true</enabled></snapshots>
         </repository>
     </repositories>
