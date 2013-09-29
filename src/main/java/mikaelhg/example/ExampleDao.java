@@ -3,6 +3,7 @@ package mikaelhg.example;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 /**
@@ -12,8 +13,10 @@ import org.springframework.data.rest.core.annotation.RestResource;
  */
 @RestResource(rel = "examples", path = "examples")
 public interface ExampleDao extends JpaRepository<Example, Long> {
-    List<Example> findByNameLike(final String nameLike);
+
+    List<Example> findByNameLike(final @Param("name") String nameLike);
 
     @Query("SELECT e FROM mikaelhg.example.Example e WHERE e.name LIKE '%y%'")
     List<Example> findComedies();
+
 }
