@@ -35,14 +35,19 @@ public class ExampleController {
 
     private final static ApplicationContextInitializer<ConfigurableApplicationContext> REQUIRE_UTF8 =
             new ApplicationContextInitializer<ConfigurableApplicationContext>() {
+        private final static String REFUSE_TO_START =
+                "We can't run this application properly, since the Java Virtual Machine it runs in hasn't " +
+                        " been configured to use the UTF-8 default character encoding. Closing down.";
         @Override public void initialize(final ConfigurableApplicationContext ctx) {
             final String encoding = System.getProperty("file.encoding");
             if (encoding != null && !"UTF-8".equals(encoding.toUpperCase())) {
                 log.error("Your system property \"file.encoding\" is currently \"{}\". It should be \"UTF-8\". ", encoding);
-                log.error("Your environmental variable LANG is currently \"{}\". It should end \".UTF-8\". ", System.getenv("LANG"));
-                log.error("Your environmental variable LC_ALL is currently \"{}\". It should end \".UTF-8\". ", System.getenv("LC_ALL"));
-                log.error("We can't run this application properly if the Java Virtual Machine it runs in hasn't been configured to use the UTF-8 encoding. Closing down.");
-                throw new IllegalStateException("We can't run this application properly if the Java Virtual Machine it runs in hasn't been configured to use the UTF-8 encoding. Closing down.");
+                log.error("Your environmental variable LANG is currently \"{}\". You must use a UTF-8 locale setting.",
+                        System.getenv("LANG"));
+                log.error("Your environmental variable LC_ALL is currently \"{}\". You must use a UTF-8 locale setting.",
+                        System.getenv("LC_ALL"));
+                log.error(REFUSE_TO_START);
+                throw new IllegalStateException(REFUSE_TO_START);
             }
         }
     };
@@ -71,7 +76,7 @@ public class ExampleController {
         };
     }
 
-    @RequestMapping(value="/")
+    @RequestMapping("/")
     public String welcome(final ModelMap model, final HttpServletResponse response) {
         response.setHeader("Pragma","No-cache");
         response.setHeader("Cache-Control","no-cache");
