@@ -1,6 +1,7 @@
 spring:
   application.name: mikaelhg's Spring Boot MVC example
   config.name: springmvc-example
+  mandatoryFileEncoding: UTF-8
 
   main:
     web-environment: true
