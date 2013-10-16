@@ -20,7 +20,7 @@ server:
 ---
 spring.profiles: default
 
-spring.database.platform: h2
+spring.datasource.platform: h2
 spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
 spring.thymeleaf.cache: false
 
@@ -30,7 +30,7 @@ spring.profiles: postgresql
 # TODO: NEEDS FIXING WHEN SPRING BOOT FIXES NON-EMBEDDED AUTODETECTION
 
 spring:
-  database:
+  datasource:
     platform: postgresql
     driverClassName: org.postgresql.Driver
   jpa:
@@ -42,7 +42,7 @@ spring.profiles: mysql
 # TODO: NEEDS FIXING WHEN SPRING BOOT FIXES NON-EMBEDDED AUTODETECTION
 
 spring:
-  database:
+  datasource:
     platform: mysql
     driverClassName: com.mysql.jdbc.Driver
   jpa:
