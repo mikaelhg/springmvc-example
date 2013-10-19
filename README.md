@@ -2,14 +2,26 @@
 
 This skeleton contains:
 
-* application.yml: The application configuration file
+Frontend:
+
 * index.html: A Thymeleaf view template, for lean HTML generation
-* app.js:
+* app.js: AngularJS frontend application.
+
+Backend:
+
+* application.yml: The application configuration file
 * ExampleController.java: Contains the entry point main method, and a simple, annotation-configured front end for all HTTP web requests.
 * ExampleService.java: A business service skeleton, demonstrating Google Guava and Joda-Time.
 * ExampleDao.java: A Spring Data JPA compatible DAO interface, CRUD with minimal boilerplate.
 * Example.java: A skeleton JPA entity class with Lombok autogenerating the getters and setters required by the spec.
 * pom.xml: Project build, dependency and packaging configuration file.
+
+## This experimental branch of the sample application is not currently anywhere fit for production use.
+
+The current snapshot versions of various libraries used in this project are not fit for production use,
+as you can verify by starting the application, and running the Apache Benchmark utility against it:
+
+    ab -c 5 -n 10000 http://localhost:8080/examples
 
 ## If you develop with IntelliJ IDEA...
 
