@@ -33,10 +33,8 @@ public class ExampleController {
 
     @Resource private ExampleDao dao;
 
-    public static void main(final String ... args) {
-        new SpringApplicationBuilder(ExampleController.class)
-                .web(true)
-                .run(args);
+    public static void main(final String... args) {
+        new SpringApplicationBuilder(ExampleController.class).run(args);
     }
 
     /**
@@ -58,8 +56,8 @@ public class ExampleController {
 
     @RequestMapping("/")
     public String welcome(final ModelMap model, final HttpServletResponse response) {
-        response.setHeader("Pragma","No-cache");
-        response.setHeader("Cache-Control","no-cache");
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
         model.put("examples", dao.findAll(new Sort("id")));
         model.put("comedies", dao.findComedies());

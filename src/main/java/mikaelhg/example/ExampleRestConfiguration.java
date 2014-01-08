@@ -5,7 +5,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
 import org.springframework.hateoas.config.EnableHypermediaSupport;
 
 @Configuration
-@EnableHypermediaSupport
+@EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class ExampleRestConfiguration extends RepositoryRestMvcConfiguration {
 
 }
