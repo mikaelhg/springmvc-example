@@ -25,7 +25,7 @@ import java.io.IOException;
 public class ExampleController {
 
     public static void main(final String... args) {
-        new SpringApplicationBuilder(ExampleController.class).run(args);
+        new SpringApplicationBuilder(ExampleController.class).web(true).run(args);
     }
 
     /**
