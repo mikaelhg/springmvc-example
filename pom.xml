@@ -15,19 +15,25 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>0.5.0.BUILD-SNAPSHOT</version>
+        <version>1.0.0.RC1</version>
     </parent>
 
     <properties>
-        <spring-data-jpa.version>1.5.0.BUILD-SNAPSHOT</spring-data-jpa.version>
-        <spring-data-commons.version>1.7.0.BUILD-SNAPSHOT</spring-data-commons.version>
-        <spring-data-rest.version>2.0.0.BUILD-SNAPSHOT</spring-data-rest.version>
+        <spring-data-jpa.version>1.5.0.M1</spring-data-jpa.version>
+        <spring-data-rest.version>2.0.0.M1</spring-data-rest.version>
         <spring-hateoas.version>0.9.0.BUILD-SNAPSHOT</spring-hateoas.version>
-        <spring.version>4.0.0.BUILD-SNAPSHOT</spring.version>
+        <spring.version>4.0.0.RELEASE</spring.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <repositories>
+        <repository>
+            <id>spring-release</id>
+            <name>Spring Release</name>
+            <url>http://repo.spring.io/release</url>
+            <snapshots><enabled>false</enabled></snapshots>
+            <releases><enabled>true</enabled></releases>
+        </repository>
         <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
@@ -168,7 +174,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.26</version>
+            <version>5.1.27</version>
         </dependency>
 
         <dependency>
@@ -194,7 +200,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.0.0.BUILD-SNAPSHOT</version>
+            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
 
