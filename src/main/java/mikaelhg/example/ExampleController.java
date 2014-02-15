@@ -6,12 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
 import java.io.IOException;
 
 /**
@@ -28,20 +24,28 @@ public class ExampleController {
         new SpringApplicationBuilder(ExampleController.class).web(true).run(args);
     }
 
+    @FunctionalInterface
+    private static interface LambdaFilter extends Filter {
+        @Override
+        public void doFilter(ServletRequest request, ServletResponse response,
+                             FilterChain chain) throws IOException, ServletException;
+
+        @Override
+        default public void init(FilterConfig filterConfig) throws ServletException {}
+
+        @Override
+        default public void destroy() {}
+    }
+
     /**
      * We want every request/response pair to be handled as UTF-8, and every response identify itself as UTF-8.
      */
     @Bean
-    public javax.servlet.Filter characterSetFilter() {
-        return new OncePerRequestFilter() {
-            @Override
-            protected void doFilterInternal(final HttpServletRequest req, final HttpServletResponse res, final FilterChain chain)
-                    throws ServletException, IOException
-            {
-                req.setCharacterEncoding("UTF-8");
-                res.setCharacterEncoding("UTF-8");
-                chain.doFilter(req, res);
-            }
+    public Filter characterSetFilter() {
+        return (LambdaFilter) (req, res, chain) -> {
+            req.setCharacterEncoding("UTF-8");
+            res.setCharacterEncoding("UTF-8");
+            chain.doFilter(req, res);
         };
     }
 
