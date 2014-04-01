@@ -1,4 +1,4 @@
-CREATE TABLE examples (
+CREATE TABLE IF NOT EXISTS examples (
   id SERIAL NOT NULL PRIMARY KEY,
   name TEXT
 );

@@ -20,8 +20,8 @@ server:
 ---
 spring.profiles: default
 
+spring.jpa.database: H2
 spring.datasource.platform: h2
-spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
 spring.thymeleaf.cache: false
 
 ---
@@ -34,7 +34,9 @@ spring:
     platform: postgresql
     driverClassName: org.postgresql.Driver
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: POSTGRESQL
+    generate-ddl: false
+    hibernate.ddl-auto: none
 
 ---
 spring.profiles: mysql
@@ -46,4 +48,6 @@ spring:
     platform: mysql
     driverClassName: com.mysql.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database: MySQL
+    generate-ddl: false
+    hibernate.ddl-auto: none
