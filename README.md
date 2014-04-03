@@ -52,6 +52,14 @@ JRebel, or a commercial one, if your project pays for it: http://zeroturnaround.
       -Dspring.datasource.password=password \
       spring-boot:run
 
+    mvn clean package
+
+    java -jar target/springmvc-example-*.war \
+      --spring.profiles.active=postgresql \
+      --spring.datasource.url=jdbc:postgresql://localhost/database \
+      --spring.datasource.username=username \
+      --spring.datasource.password=password
+
 ### Legacy mode (MySQL)
 
     mvn -Dspring.profiles.active=mysql \
@@ -59,3 +67,11 @@ JRebel, or a commercial one, if your project pays for it: http://zeroturnaround.
       -Dspring.datasource.username=username \
       -Dspring.datasource.password=password \
       spring-boot:run
+
+    mvn clean package
+
+    java -jar target/springmvc-example-*.war \
+      --spring.profiles.active=mysql \
+      --spring.datasource.url=jdbc:mysql://localhost/database \
+      --spring.datasource.username=username \
+      --spring.datasource.password=password
