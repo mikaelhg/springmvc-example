@@ -27,8 +27,6 @@ spring.thymeleaf.cache: false
 ---
 spring.profiles: postgresql
 
-# TODO: NEEDS FIXING WHEN SPRING BOOT FIXES NON-EMBEDDED AUTODETECTION
-
 spring:
   datasource:
     platform: postgresql
@@ -38,16 +36,18 @@ spring:
     generate-ddl: false
     hibernate.ddl-auto: none
 
+server.address: 0.0.0.0
+
 ---
 spring.profiles: mysql
-
-# TODO: NEEDS FIXING WHEN SPRING BOOT FIXES NON-EMBEDDED AUTODETECTION
 
 spring:
   datasource:
     platform: mysql
     driverClassName: com.mysql.jdbc.Driver
   jpa:
-    database: MySQL
+    database: MYSQL
     generate-ddl: false
     hibernate.ddl-auto: none
+
+server.address: 0.0.0.0
