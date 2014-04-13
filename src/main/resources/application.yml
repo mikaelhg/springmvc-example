@@ -1,5 +1,5 @@
 spring:
-  application.name: mikaelhg's Spring Boot MVC example
+  application.name: springmvc-example
   config.name: springmvc-example
   mandatoryFileEncoding: UTF-8
 
