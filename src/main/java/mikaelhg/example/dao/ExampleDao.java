@@ -1,4 +1,4 @@
-package mikaelhg.example;
+package mikaelhg.example.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,7 +17,7 @@ public interface ExampleDao extends JpaRepository<Example, Long> {
 
     List<Example> findByNameLike(final @Param("name") String nameLike);
 
-    @Query("SELECT e FROM mikaelhg.example.Example e WHERE e.name LIKE '%y%'")
+    @Query("SELECT e FROM mikaelhg.example.dao.Example e WHERE e.name LIKE '%y%'")
     List<Example> findComedies();
 
 }

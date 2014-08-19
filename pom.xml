@@ -162,7 +162,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.3.2</version>
                 <configuration>
-                    <mainClass>mikaelhg.example.ExampleController</mainClass>
+                    <mainClass>mikaelhg.example.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>

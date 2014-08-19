@@ -1,4 +1,4 @@
-package mikaelhg.example;
+package mikaelhg.example.dao;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
