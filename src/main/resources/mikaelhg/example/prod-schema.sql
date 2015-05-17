@@ -1,4 +1,0 @@
-CREATE TABLE examples (
-  id SERIAL NOT NULL PRIMARY KEY,
-  name TEXT
-);
